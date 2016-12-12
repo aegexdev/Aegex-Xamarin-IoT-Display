@@ -2,13 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="_1to1Core.LandingPage"
              xmlns:local="clr-namespace:_1to1Core;"> <!-- Not sure of what this does - DV> -->
     <ContentPage.Content>
-        <ListView  x:Name="lstView">
+<!--        <ListView  x:Name="lstView">
             <ListView.ItemTemplate>
              <DataTemplate>
-           		 <local:CustomCell Name="{Binding Name}" Age="{Binding Age}" Location="{Binding Location}" />
-   			 </DataTemplate>	
+	 		 	<local:CustomCell x:Name="customCell" Name="{Binding Name}" Age="{Binding Age}" Location="{Binding Location}" />
+				</DataTemplate>	
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
+
+		<ListView x:Name="listView" ItemTapped="OnItemTapped">
+		    <ListView.ItemTemplate>
+      			<DataTemplate>
+      			  <TextCell Text="{Binding Name}" />
+      			</DataTemplate>
+    		</ListView.ItemTemplate>
+		</ListView>
     </ContentPage.Content>
 
 </ContentPage>

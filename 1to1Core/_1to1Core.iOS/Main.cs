@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
-using UIKit;
+﻿using UIKit;
 
 namespace _1to1Core.iOS
 {

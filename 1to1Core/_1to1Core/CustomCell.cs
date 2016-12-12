@@ -34,7 +34,6 @@ namespace _1to1Core
 		}
 
 
-
    		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
