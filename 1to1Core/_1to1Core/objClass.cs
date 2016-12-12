@@ -16,13 +16,13 @@ namespace _1to1Core
 			set;
 		}
 
-		public string SeonsorType
+		public string SensorType
 		{
 			get;
 			set;
 		}
 
-		public string SeonsorValue
+		public string SensorValue
 		{
 			get;
 			set;
@@ -34,29 +34,5 @@ namespace _1to1Core
 			set;
 		}
 
-		/// <value>The name.</value>
-
-		public string Name
-		{
-			get;
-			set;
-		}
-
-		public int Age
-		{
-			get;
-			set;
-		}
-
-		public string Location
-		{
-			get;
-			set;
-		}
-
-		public objClass()
-		{
-
-		}
 	}
 }
