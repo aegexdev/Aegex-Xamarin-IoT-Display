@@ -9,6 +9,8 @@
 							<Label Text="{Binding DeviceId}" VerticalTextAlignment="Center" FontSize="Medium" />
 							<Label Text="{Binding SensorType}" VerticalTextAlignment="Center" FontSize="Small" />
 							<Label Text="{Binding SensorValue}" VerticalTextAlignment="Center" FontSize="Small" />
+							<Label Text="{Binding OutputTime}" VerticalTextAlignment="Center" FontSize="Small" />
+
 						</StackLayout>
 					</StackLayout>
 				</ViewCell>

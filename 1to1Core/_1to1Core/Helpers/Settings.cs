@@ -10,9 +10,9 @@ namespace _1to1Core
 #if WINDOWS_UWP
         public static string HockeyAppId = "1c52884e1fdf4977ba1e2ca004c0b59c";
 #elif __ANDROID__
-        public static string HockeyAppId = "e1eaada60c094131bbefd332da4bfb4d";
+        public static string HockeyAppId = "3768986591c5474b935eba71cc2957ca";
 #elif __IOS__
-        public static string HockeyAppId = "786ecbec0b564d03974dc94c96f50fb0";
+        public static string HockeyAppId = "368f3b4462bb4126b95d3444fee9d72b";
 #endif
 
     }

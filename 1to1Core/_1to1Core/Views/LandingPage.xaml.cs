@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using System.Data.SqlClient;
 
 namespace _1to1Core
 {
@@ -35,9 +36,10 @@ namespace _1to1Core
 			var lv 			   = this.FindByName<ListView>("listView");
 				lv.ItemsSource = Objects;
 
-			// Bind data to view
-			//this.BindingContext = Objects[0].Name; // Does same thing as above
+			// Tell hockey app that we used landing page
+			HockeyApp.MetricsManager.TrackEvent("Loaded Landing Page");
 		}
+
 
 
 		void OnItemTapped(object sender, ItemTappedEventArgs e)
