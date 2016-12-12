@@ -45,6 +45,7 @@
       <DependentUpon>LandingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LandingPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CustomCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">

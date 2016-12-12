@@ -11,6 +11,17 @@ namespace _1to1Core
 		{
 			BindingContext = new LandingPageViewModel();
 			InitializeComponent();
+
+			var lv = this.FindByName<ListView>("listView");
+				lv.IsVisible = false;
+
+
+		}
+
+		void OnItemSelected(object o, EventArgs e)
+		{
+			Console.WriteLine("OnItemSelected");
+
 		}
 	}
 }
