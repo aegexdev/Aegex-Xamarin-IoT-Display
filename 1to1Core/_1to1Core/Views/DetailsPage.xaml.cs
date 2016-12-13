@@ -9,22 +9,12 @@ namespace _1to1Core
 	{
 		ObservableCollection<DeviceData> Objects = new ObservableCollection<DeviceData>();
 
-		public DetailsPage()
+		public DetailsPage(ObservableCollection<DeviceData> myCollection)
 		{
 			InitializeComponent();
 
-			Objects.Add(new DeviceData()
-			{
-				Id = 0,
-				DeviceId = "MyDevice",
-				SensorType = "MyType",
-				SensorValue = "MyValue",
-				//OutputTime = DateTime.Now
-			});
-
-
 			var lv 			   = this.FindByName<ListView>("listView");
-				lv.ItemsSource = Objects;
+			    lv.ItemsSource = myCollection;
 		}
 
 		void OnItemTapped(object sender, ItemTappedEventArgs e)

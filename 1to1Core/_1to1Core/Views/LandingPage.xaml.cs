@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -11,9 +11,9 @@ namespace _1to1Core
 
 	public partial class LandingPage : ContentPage
 	{
-		public ObservableCollection<DeviceData> ocDeviceData = new ObservableCollection<DeviceData>();
-		private string _domain   = "https://aegexdemo.azurewebsites.net/api/GetLatestSensorValues?code=h6FgTimqp7kK2XmjPgmsYqGFCafTV5AG5X8ktA9XBNTK1gMJOUUd4g==";
-		private string _endPoint = "";
+		public static ObservableCollection<DeviceData> ocDeviceData = new ObservableCollection<DeviceData>();
+		string _domain   = "https://aegexdemo.azurewebsites.net/api/GetLatestSensorValues?code=h6FgTimqp7kK2XmjPgmsYqGFCafTV5AG5X8ktA9XBNTK1gMJOUUd4g==";
+		string _endPoint = "";
 
 		List<DeviceData> dData;
 
@@ -61,12 +61,11 @@ namespace _1to1Core
 		/// </summary>
 		void getWebRequest(string domain, string endPoint)
 		{
-			var client = new RestClient(domain);
+			var client  = new RestClient (domain);
 			var request = new RestRequest(endPoint, Method.GET);
 
 			// Automatically deserialize result
 			IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
-			Debug.WriteLine(response);
 			Debug.WriteLine(response.Content);
 
 			// Crazy manipulation. Can probably get rid of this
@@ -87,7 +86,7 @@ namespace _1to1Core
 
 		void postWebRequest(string domain, string endPoint)
 		{
-			var client = new RestClient(domain);
+			var client  = new RestClient (domain);
 			var request = new RestRequest(endPoint, Method.POST);
 			// TODO: Add header  + Params here if necessary
 
@@ -104,7 +103,7 @@ namespace _1to1Core
 		{
 			if (e == null) return; // has been set to null, do not 'process' tapped event'
 			((ListView)sender).SelectedItem = null; // de-select the row
-			App.NavigationPage.Navigation.PushAsync(new DetailsPage());
+			App.NavigationPage.Navigation.PushAsync(new DetailsPage(ocDeviceData));
 		}
 
 	}
