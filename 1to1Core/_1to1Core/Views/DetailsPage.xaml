@@ -4,22 +4,22 @@
 	    <ListView.ItemTemplate>
   			<DataTemplate>
 				<ViewCell>
-					<StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+					<StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" >
 					    <StackLayout Padding="5,0,5,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Name: "  			  VerticalTextAlignment="Center" FontSize="Medium"  TextColor="Black"/>
+								<Label Text="Name: "  			  VerticalTextAlignment="Center" FontSize="Medium"  TextColor="Black" FontAttributes="Bold" />
 							    <Label Text="{Binding DeviceId}"  VerticalTextAlignment="Center" FontSize="Medium"  TextColor="Black"/>
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Sensor Type:"  VerticalTextAlignment="Center" FontSize="Small" />
+								<Label Text="Sensor Type:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding SensorType}"  VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Sensor Value:"  VerticalTextAlignment="Center" FontSize="Small" />
+								<Label Text="Sensor Value:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding SensorValue}" VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Output Time:"  VerticalTextAlignment="Center" FontSize="Small" />
+								<Label Text="Output Time:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding OutputTime}"  VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 						</StackLayout>

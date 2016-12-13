@@ -31,6 +31,9 @@ namespace _1to1Core
 
 			// Set data here
 			getWebRequest(_sDomain, _endPoint);
+			// If the Azure Function is down, use this for testing local data & comment out getWebRequest()
+			// ocDeviceData = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(sLocalData);
+
 
 			// Set data to the listview 
 			var lv 			   = this.FindByName<ListView>("listView");
@@ -52,10 +55,9 @@ namespace _1to1Core
 			var request = new RestRequest(sEndPoint, Method.GET);
 
 			// Deserialize JSON result
-			//IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
+			IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
 			// Store deserialized result in an Observable Collection
-			//ocDeviceData  = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(response.Content);
-			ocDeviceData = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(sLocalData);
+			ocDeviceData  = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(response.Content);
 		}
 
 
