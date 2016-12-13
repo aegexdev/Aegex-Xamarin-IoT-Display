@@ -8,8 +8,6 @@ namespace _1to1Core
 {
 	public partial class DetailsPage : ContentPage
 	{
-		ObservableCollection<DeviceData> Objects = new ObservableCollection<DeviceData>();
-
 		public DetailsPage(ObservableCollection<DeviceData> ocDeviceData)
 		{
 			InitializeComponent();
