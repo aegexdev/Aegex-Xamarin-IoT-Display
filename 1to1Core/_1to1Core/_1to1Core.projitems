@@ -43,7 +43,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LandingPageViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomCell.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)objClass.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>
     </Compile>

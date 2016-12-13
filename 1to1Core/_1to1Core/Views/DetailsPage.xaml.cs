@@ -7,13 +7,13 @@ namespace _1to1Core
 {
 	public partial class DetailsPage : ContentPage
 	{
-		ObservableCollection<objClass> Objects = new ObservableCollection<objClass>();
+		ObservableCollection<DeviceData> Objects = new ObservableCollection<DeviceData>();
 
 		public DetailsPage()
 		{
 			InitializeComponent();
 
-			Objects.Add(new objClass()
+			Objects.Add(new DeviceData()
 			{
 				Id = 0,
 				DeviceId = "MyDevice",

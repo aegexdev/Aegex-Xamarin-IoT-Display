@@ -6,13 +6,13 @@ namespace _1to1Core
 {
 	public class LandingPageViewModel
 	{
-		public ObservableCollection<objClass> Objects { get; set; }
+		public ObservableCollection<DeviceData> Objects { get; set; }
 
 
 		public LandingPageViewModel()
 		{
 			
-			this.Objects = new ObservableCollection<objClass>();
+			this.Objects = new ObservableCollection<DeviceData>();
 
 		}
 
