@@ -1,7 +1,7 @@
-﻿
-using System.Diagnostics;
+﻿/* Dave Voyles, Microsoft Corp. 2016
+ * www.Dave Voyles.com | Twitter.com/DaveVoyles
+ */
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using Xamarin.Forms;
 using RestSharp;
 using Newtonsoft.Json;
@@ -11,40 +11,21 @@ namespace _1to1Core
 
 	public partial class LandingPage : ContentPage
 	{
+		/// <summary>
+		/// Store deserialized JSON from Azure Function here
+		/// </summary>
 		public static ObservableCollection<DeviceData> ocDeviceData = new ObservableCollection<DeviceData>();
-		string _domain   = "https://aegexdemo.azurewebsites.net/api/GetLatestSensorValues?code=h6FgTimqp7kK2XmjPgmsYqGFCafTV5AG5X8ktA9XBNTK1gMJOUUd4g==";
+		//string _domain   = "https://aegexdemo.azurewebsites.net/api/GetLatestSensorValues?code=h6FgTimqp7kK2XmjPgmsYqGFCafTV5AG5X8ktA9XBNTK1gMJOUUd4g==";
+		string _sDomain  = "https://jmr-aeg-01.azurewebsites.net/api/GetLatestSensorData?code=nwvgkOZ0nIznS2lTNb6W9ERZZwfG7zxpA0uAgavigVJyKG0iFYeivQ==";
 		string _endPoint = "";
 
-		List<DeviceData> dData;
-
-		string myJson = @"[{""Id"":35052,""DeviceId"":""Device01"",""SensorType"":""gasSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""},{""Id"":35055,""DeviceId"":""Device01"",""SensorType"":""lightSensor"",""SensorValue"":""559"",""OutputTime"":""2016-12-13T10:58:21""},{""Id"":35053,""DeviceId"":""Device01"",""SensorType"":""flameSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""},{""Id"":34757,""DeviceId"":""Device01"",""SensorType"":""tempSensor"",""SensorValue"":""Low"",""OutputTime"":""2016-12-13T09:46:39""},{""Id"":35054,""DeviceId"":""Device01"",""SensorType"":""knockSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""}]";
 
 		public LandingPage()
 		{
 			InitializeComponent();
 
-			// Create dummy data
-			// TODO: Remove this when we can return data from API
-			//ocDeviceData.Add(new DeviceData()
-			//{
-			//	Id = 0,
-			//	DeviceId = "MyDevice",
-			//	SensorType = "MyType",
-			//	SensorValue = "MyValue",
-			//	OutputTime = DateTime.Now
-			//});
-
-			//ocDeviceData.Add(new DeviceData()
-			//{
-			//	Id = 1,
-			//	DeviceId = "MyDeviceOne",
-			//	SensorType = "MyType One",
-			//	SensorValue = "MyValueOne",
-			//	OutputTime = DateTime.Now
-			//});
-
 			// Set data here
-			getWebRequest(_domain, _endPoint);
+			getWebRequest(_sDomain, _endPoint);
 
 			// Set data to the listview 
 			var lv 			   = this.FindByName<ListView>("listView");
@@ -55,49 +36,25 @@ namespace _1to1Core
 			HockeyApp.MetricsManager.TrackEvent("Loaded Landing Page");
 		}
 
-
 		/// <summary>
-		/// Grab JSON data from SQL database, via Azure Function
+		/// Return JSON from Azure Function 
 		/// </summary>
-		void getWebRequest(string domain, string endPoint)
+		/// <param name="sDomain">Root URL to pull JSON from</param>
+		/// <param name="sEndPoint">[Optional], used if you want to point toward a more specific URL</param>
+		void getWebRequest(string sDomain, string sEndPoint)
 		{
-			var client  = new RestClient (domain);
-			var request = new RestRequest(endPoint, Method.GET);
+			var client  = new RestClient (sDomain);
+			var request = new RestRequest(sEndPoint, Method.GET);
 
-			// Automatically deserialize result
+			// Deserialize JSON result
 			IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
-			Debug.WriteLine(response.Content);
-
-			// Crazy manipulation. Can probably get rid of this
-			//var thisData = JsonConvert.DeserializeObject<List<DeviceData>>(response.Content);
-			//var newString = @"" + thisData;
-			//var finalString = JsonConvert.DeserializeObject<List<DeviceData>>(newString);
-			//Debug.WriteLine(newString[0]);
-			//Debug.WriteLine(finalString[0].DeviceId);
-
-			ocDeviceData = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(myJson);
-			Debug.WriteLine(ocDeviceData[0].DeviceId);
-
-			//dData = JsonConvert.DeserializeObject<List<DeviceData>>(myJson);
-			//Debug.WriteLine(dData[0].DeviceId);
-		}
-
-
-
-		void postWebRequest(string domain, string endPoint)
-		{
-			var client  = new RestClient (domain);
-			var request = new RestRequest(endPoint, Method.POST);
-			// TODO: Add header  + Params here if necessary
-
-			// execute the request & store cookies for future requests
-			IRestResponse response = client.Execute(request);
-			var content = response.Content; // raw content as string
+			// Store deserialized result in an Observable Collection
+			ocDeviceData  = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(response.Content);
 		}
 
 
 		/// <summary>
-		/// navigate to details page 
+		/// navigate to details page and pass in static OC of serialized DeviceData
 		/// </summary>
 		void OnItemTapped(object sender, ItemTappedEventArgs e)
 		{
