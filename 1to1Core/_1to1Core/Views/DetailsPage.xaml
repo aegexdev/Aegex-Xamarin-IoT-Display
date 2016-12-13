@@ -11,15 +11,15 @@
 							    <Label Text="{Binding DeviceId}"  VerticalTextAlignment="Center" FontSize="Medium"  TextColor="Black"/>
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Sensor Type:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
+								<Label Text="Sensor Type: "  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding SensorType}"  VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Sensor Value:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
+								<Label Text="Sensor Value: "  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding SensorValue}" VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 							<StackLayout Orientation="Horizontal" >
-								<Label Text="Output Time:"  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
+								<Label Text="Output Time: "  VerticalTextAlignment="Center" FontSize="Small" FontAttributes="Bold" />
 								<Label Text="{Binding OutputTime}"  VerticalTextAlignment="Center" FontSize="Small" />
 							</StackLayout>
 						</StackLayout>
