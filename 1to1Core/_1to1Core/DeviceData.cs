@@ -1,11 +1,12 @@
 ﻿using System;
 namespace _1to1Core
 {
+	/// <summary>
+	/// Maps data from JSON to C# type
+	/// </summary>
 	public class DeviceData
 	{
-
-		public int Id
-		{
+		public int Id{
 			get;
 			set;
 		}

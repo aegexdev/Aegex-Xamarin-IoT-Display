@@ -19,11 +19,11 @@ namespace _1to1Core
 		RequestObject  _requestObject;
 
 		// API authentication
-		public string _domainUrl   = "http://fineos.dev.cmaeon.com/webservices";
-		public string _requestUrl  = "/auth.asmx/internalLogin";
-		public string _credentials = "loginName =user28%40finaeosconnect.com&password=P%40ssw0rd&rememberMe=false";
-		public string _fileUrl     = "cmaeon/rocket/files.asmx/viewFile?filePath=files%5C1305%5CDemo+Instances.docx&version=1";
-		public string _filePath    = @"files\1305\Demo Instances.docx";
+		public string _domainUrl   = "";
+		public string _requestUrl  = "";
+		public string _credentials = "";
+		public string _fileUrl     = "";
+		public string _filePath    = @"";
 
 		/// <summary>
 		/// Store cookie values during first API request. Two (2) should be returned.
@@ -148,8 +148,8 @@ namespace _1to1Core
 
 			var request = new RestRequest(requestUrl, Method.POST);
 				request.AddHeader   ("Content-Type", "application/x-www-form-urlencoded");
-				request.AddParameter("loginName"   , "user28@finaeosconnect.com"		);
-				request.AddParameter("password"    , "P@ssw0rd"							);
+				request.AddParameter("loginName"   , "loginname"		);
+				request.AddParameter("password"    , "myP@ssw0rd"							);
 				request.AddParameter("rememberMe"  , "false"							);
 
 			// execute the request & store cookies for future requests

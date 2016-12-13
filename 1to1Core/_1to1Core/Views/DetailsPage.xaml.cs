@@ -19,7 +19,7 @@ namespace _1to1Core
 				DeviceId = "MyDevice",
 				SensorType = "MyType",
 				SensorValue = "MyValue",
-				OutputTime = DateTime.Now
+				//OutputTime = DateTime.Now
 			});
 
 

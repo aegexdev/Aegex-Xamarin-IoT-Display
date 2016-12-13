@@ -1,132 +1,112 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using Xamarin.Forms;
-using Microsoft.WindowsAzure.MobileServices;
+using RestSharp;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
-using System.Linq;
 
-
-namespace _1to1Core
+namespace _1to1Core 
 {
-	public class TodoItem
-	{
-		public string Id { get; set; }
-		public string Text { get; set; }
-	}
-
-	public class myTabble
-	{
-		public string Id { get; set; }
-
-		[JsonProperty(PropertyName = "name")]
-		public string name { get; set; }
-
-		[JsonProperty(PropertyName = "age")]
-		public int age { get; set; }
-
-		[JsonProperty(PropertyName = "fname")]
-		public string fname { get; set; }
-	}
 
 	public partial class LandingPage : ContentPage
 	{
-		// Dummy data that we are inserting into the view
-		public ObservableCollection<DeviceData> Objects = new ObservableCollection<DeviceData>();
-		// Mobile service connection
-		public static MobileServiceClient MobileService = new MobileServiceClient("https://aegex-ms.azurewebsites.net");
-		// Dummy test item for mobile service
-		TodoItem item = new TodoItem { Text = "Awesome item" };
+		public ObservableCollection<DeviceData> ocDeviceData = new ObservableCollection<DeviceData>();
+		private string _domain   = "https://aegexdemo.azurewebsites.net/api/GetLatestSensorValues?code=h6FgTimqp7kK2XmjPgmsYqGFCafTV5AG5X8ktA9XBNTK1gMJOUUd4g==";
+		private string _endPoint = "";
 
+		List<DeviceData> dData;
+
+		string myJson = @"[{""Id"":35052,""DeviceId"":""Device01"",""SensorType"":""gasSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""},{""Id"":35055,""DeviceId"":""Device01"",""SensorType"":""lightSensor"",""SensorValue"":""559"",""OutputTime"":""2016-12-13T10:58:21""},{""Id"":35053,""DeviceId"":""Device01"",""SensorType"":""flameSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""},{""Id"":34757,""DeviceId"":""Device01"",""SensorType"":""tempSensor"",""SensorValue"":""Low"",""OutputTime"":""2016-12-13T09:46:39""},{""Id"":35054,""DeviceId"":""Device01"",""SensorType"":""knockSensor"",""SensorValue"":""High"",""OutputTime"":""2016-12-13T10:58:20""}]";
 
 		public LandingPage()
 		{
 			InitializeComponent();
 
-			// Init mobile services 
-			CurrentPlatform.Init();
-
-
 			// Create dummy data
-			Objects.Add(new DeviceData()
-			{
-				Id = 0,
-				DeviceId = "MyDevice",
-				SensorType = "MyType",
-				SensorValue = "MyValue",
-				OutputTime = DateTime.Now
-			});
+			// TODO: Remove this when we can return data from API
+			//ocDeviceData.Add(new DeviceData()
+			//{
+			//	Id = 0,
+			//	DeviceId = "MyDevice",
+			//	SensorType = "MyType",
+			//	SensorValue = "MyValue",
+			//	OutputTime = DateTime.Now
+			//});
 
-			Objects.Add(new DeviceData()
-			{
-				Id = 1,
-				DeviceId = "MyDeviceOne",
-				SensorType = "MyTypeOne",
-				SensorValue = "MyValueOne",
-				OutputTime = DateTime.Now
-			});
+			//ocDeviceData.Add(new DeviceData()
+			//{
+			//	Id = 1,
+			//	DeviceId = "MyDeviceOne",
+			//	SensorType = "MyType One",
+			//	SensorValue = "MyValueOne",
+			//	OutputTime = DateTime.Now
+			//});
 
-			// Set items to the listview 
+			// Set data here
+			getWebRequest(_domain, _endPoint);
+
+			// Set data to the listview 
 			var lv 			   = this.FindByName<ListView>("listView");
-				lv.ItemsSource = Objects;
+			    lv.ItemsSource = ocDeviceData;
 
 			// Tell hockey app that we used landing page
+			// TODO: Hockeyapp SDK has issues with iOS 10.x simulator
 			HockeyApp.MetricsManager.TrackEvent("Loaded Landing Page");
 		}
 
 
-
-
-		void OnItemTapped(object sender, ItemTappedEventArgs e)
+		/// <summary>
+		/// Grab JSON data from SQL database, via Azure Function
+		/// </summary>
+		void getWebRequest(string domain, string endPoint)
 		{
-			if (e == null) { return; } 			    // has been set to null, do not 'process' tapped event'
-			((ListView)sender).SelectedItem = null; // de-select the row
-			AsyncTaskHandler();	
-		}
+			var client = new RestClient(domain);
+			var request = new RestRequest(endPoint, Method.GET);
 
-		// Allows us to use Async in events
-		// https://blogs.msdn.microsoft.com/pfxteam/2012/02/11/building-async-coordination-primitives-part-3-asynccountdownevent/
-		// public void SendToAzureAsync() { return AsyncTaskHandler(); }
+			// Automatically deserialize result
+			IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
+			Debug.WriteLine(response);
+			Debug.WriteLine(response.Content);
 
+			// Crazy manipulation. Can probably get rid of this
+			//var thisData = JsonConvert.DeserializeObject<List<DeviceData>>(response.Content);
+			//var newString = @"" + thisData;
+			//var finalString = JsonConvert.DeserializeObject<List<DeviceData>>(newString);
+			//Debug.WriteLine(newString[0]);
+			//Debug.WriteLine(finalString[0].DeviceId);
 
-		// TODO: Make static?
-		async void AsyncTaskHandler()
-		{
-			try
-			{
-				Console.WriteLine("Sending to Azure");
-				await MobileService.GetTable<TodoItem>().InsertAsync(item);
-				Console.WriteLine("SENT to Azure");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("ERROR: " + ex);
-			}
+			ocDeviceData = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(myJson);
+			Debug.WriteLine(ocDeviceData[0].DeviceId);
 
+			//dData = JsonConvert.DeserializeObject<List<DeviceData>>(myJson);
+			//Debug.WriteLine(dData[0].DeviceId);
 		}
 
 
-		// https://stackoverflow.com/questions/21080738/retrieve-single-value-from-azure-mobile-services-data-table
-		//async Task GetFromAzure() { 
-		//	IMobileServiceTableQuery<todoTable> query = todoTable.Where(t => t.fname == "[Your Name]");
-		//	var res = await query.ToListAsync();
-		//	var item = res.First();
-		//	//fName is a string in your object MyTable just get it like this
-		//	string fname = item.fname;
-		//}
+
+		void postWebRequest(string domain, string endPoint)
+		{
+			var client = new RestClient(domain);
+			var request = new RestRequest(endPoint, Method.POST);
+			// TODO: Add header  + Params here if necessary
+
+			// execute the request & store cookies for future requests
+			IRestResponse response = client.Execute(request);
+			var content = response.Content; // raw content as string
+		}
 
 
 		/// <summary>
 		/// navigate to details page 
 		/// </summary>
-		//void OnItemTapped(object sender, ItemTappedEventArgs e)
-		//{
-		//	if (e == null) return; // has been set to null, do not 'process' tapped event'
-		//	Debug.WriteLine("Tapped: " + e.Item);
-		//	((ListView)sender).SelectedItem = null; // de-select the row
-		//	App.NavigationPage.Navigation.PushAsync(new DetailsPage());
-		//}
+		void OnItemTapped(object sender, ItemTappedEventArgs e)
+		{
+			if (e == null) return; // has been set to null, do not 'process' tapped event'
+			((ListView)sender).SelectedItem = null; // de-select the row
+			App.NavigationPage.Navigation.PushAsync(new DetailsPage());
+		}
 
 	}
 }
+
