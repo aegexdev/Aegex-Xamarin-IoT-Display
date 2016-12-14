@@ -40,7 +40,7 @@ namespace _1to1Core
 			    lv.ItemsSource = ocDeviceData;
 
 			// Tell hockey app that we used landing page
-			// TODO: Hockeyapp SDK has issues with iOS 10.x simulator
+			// TODO: Hockeyapp SDK has issues with iOS 10.x simulator. It works, but check log for issue
 			HockeyApp.MetricsManager.TrackEvent("Loaded Landing Page");
 		}
 
@@ -55,6 +55,7 @@ namespace _1to1Core
 			var request = new RestRequest(sEndPoint, Method.GET);
 
 			// Deserialize JSON result
+			// TODO: Make this async
 			IRestResponse<DeviceData> response = client.Execute<DeviceData>(request);
 			// Store deserialized result in an Observable Collection
 			ocDeviceData  = JsonConvert.DeserializeObject<ObservableCollection<DeviceData>>(response.Content);
