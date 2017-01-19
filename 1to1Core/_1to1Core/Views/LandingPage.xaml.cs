@@ -24,7 +24,7 @@ namespace _1to1Core
 		/// <summary>
 		/// Endpoint for the Azure Function which returns JSON from SQL DB
 		/// </summary>
-		string _sDomain   = "https://jmr-aeg-01.azurewebsites.net/api/GetLatestSensorData?code=nwvgkOZ0nIznS2lTNb6W9ERZZwfG7zxpA0uAgavigVJyKG0iFYeivQ==";
+		string _sDomain   = "https://aegexiot.azurewebsites.net/api/GetCurrentSensorValues?code=IS8KaOEYNlBI3pRnt/cANRXHGK0avdhVtgfFeaThRJD7fOgO9LAklQ==";
 		string _endPoint  = "";
 
 
